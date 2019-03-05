@@ -51,42 +51,45 @@ public class JavaSpringMvcApplicationTests {
         assertThat(demoSortingDateController).isNotNull();
     }
 
-    @Test
-    public void testSubmit() {
-        DemoDate demoDate = new DemoDate(1L, "test", LocalDate.now(), LocalDate.now());
-        demoDate.setId(1L);
-        DemoDateSet demoDateSet = new DemoDateSet();
-        demoDateSet.setDates(Arrays.asList(demoDate));
-        ResponseEntity<String> responseEntity = this.restTemplate
-                .postForEntity("http://localhost:" + port + "/date/submit", demoDateSet, String.class);
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-    }
+//    @Test
+//    public void testSubmit() {
+//        DemoDate demoDate = new DemoDate(1L, "test", LocalDate.now(), LocalDate.now());
+//        demoDate.setId(1L);
+//        DemoDateSet demoDateSet = new DemoDateSet();
+//        demoDateSet.setDates(Arrays.asList(demoDate));
+//        ResponseEntity<String> responseEntity = this.restTemplate
+//                .postForEntity("http://localhost:" + port + "/date/submit", demoDateSet, String.class);
+//        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+//    }
 
     @Test
     public void testGetSortedList() throws Exception {
         ObjectMapper jsonMapper = new ObjectMapper();
         // TODO fix this filepath
-        String jsonFilePath = "/home/ealfors/IdeaProjects/train-katas/java-spring-mvc-codetest/customers.json";
-        File jsonFile = new File(jsonFilePath);
+        String resourceName = "customers.json";
+        File jsonFile = new File(getClass().getClassLoader().getResource(resourceName).getFile());
         List<DemoDate> demoDateList = jsonMapper.readValue(jsonFile, new TypeReference<List<DemoDate>>() {});
 
         when(service.getSortedDateSet()).thenReturn(demoDateList);//TODO read date from file
 
         // https://stackoverflow.com/questions/23674046/get-list-of-json-objects-with-spring-resttemplate
-        //ResponseEntity<DemoDate[]> responseEntity = restTemplate.getForEntity("http://localhost:" + port + "/date/sorted", List<DemoDate>.class);
-        //DemoDate[] demoDates = responseEntity.getBody();
+//        ResponseEntity<DemoDate[]> responseEntity = restTemplate.getForEntity("http://localhost:" + port + "/date/sorted", DemoDate[].class);
+//        DemoDate[] demoDates = responseEntity.getBody();
+//        assertEquals(1, demoDates.length);
+
+
         ResponseEntity<List<DemoDate>> responseEntity = restTemplate.exchange(
-                "http://localhost:" + port + "/date/sorted",
+                "http://localhost:" + port + "/date/sorted/",
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<DemoDate>>(){});
-        List<DemoDate> demoDateList1 = responseEntity.getBody();
+        List<DemoDate> demoDateResultList = responseEntity.getBody();
+        assertEquals(1, demoDateResultList.size());
 
 
 
         MediaType contentType = responseEntity.getHeaders().getContentType();
         HttpStatus statusCode = responseEntity.getStatusCode();
-        assertEquals(1, demoDateList1.size());
         assertEquals(HttpStatus.OK, statusCode);
     }
 

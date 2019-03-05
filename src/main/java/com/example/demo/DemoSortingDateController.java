@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,5 +23,10 @@ public class DemoSortingDateController {
     public @ResponseBody List<DemoDate> getSortedList() {
         return demoDateService.getSortedDateSet();
     }
+
+//    @RequestMapping(value="/date/sorted", method=RequestMethod.GET)
+//    public @ResponseBody DemoDate[] getSortedList() {
+//        return new DemoDate[1];
+//    }
 
 }
