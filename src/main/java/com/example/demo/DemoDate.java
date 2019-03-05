@@ -1,13 +1,20 @@
 package com.example.demo;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class DemoDate {
 
     private Long id;
     private String name;
-    private LocalDate dueTime;
-    private LocalDate joinTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+    private LocalDate duetime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate jointime;
 
     public Long getId() {
         return id;
@@ -25,19 +32,19 @@ public class DemoDate {
         this.name = name;
     }
 
-    public LocalDate getDueTime() {
-        return dueTime;
+    public LocalDate getDuetime() {
+        return duetime;
     }
 
-    public void setDueTime(LocalDate dueTime) {
-        this.dueTime = dueTime;
+    public void setDuetime(LocalDate duetime) {
+        this.duetime = duetime;
     }
 
-    public LocalDate getJoinTime() {
-        return joinTime;
+    public LocalDate getJointime() {
+        return jointime;
     }
 
-    public void setJoinTime(LocalDate joinTime) {
-        this.joinTime = joinTime;
+    public void setJointime(LocalDate jointime) {
+        this.jointime = jointime;
     }
 }
