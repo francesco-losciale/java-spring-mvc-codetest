@@ -6,15 +6,34 @@ import java.time.format.DateTimeFormatter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 public class DemoDate {
 
     private Long id;
     private String name;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+//    private LocalDate duetime;
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+//    private LocalDate jointime;
+    @JsonDeserialize(using = CustomLocalDateDeserializer.class)
+    @JsonSerialize(using = CustomLocalDateSerializer.class)
     private LocalDate duetime;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonDeserialize(using = CustomLocalDateDeserializer.class)
+    @JsonSerialize(using = CustomLocalDateSerializer.class)
     private LocalDate jointime;
+
+    public DemoDate() {
+
+    }
+
+    public DemoDate(Long id, String name, LocalDate duetime, LocalDate jointime) {
+        this.id = id;
+        this.name = name;
+        this.duetime = duetime;
+        this.jointime = jointime;
+    }
 
     public Long getId() {
         return id;
