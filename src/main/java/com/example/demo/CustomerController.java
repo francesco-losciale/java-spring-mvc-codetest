@@ -11,14 +11,13 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @RequestMapping(value = "/customer/submit", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    @ResponseBody
-    public String submit(@RequestBody List<Customer> customerList) {
-        return "Done";
+    @RequestMapping(value = "/customers/submit", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    public void submit(@RequestBody List<Customer> customerList) {
+        customerService.submit(customerList);
     }
 
-    @RequestMapping(value="/customer/sorted", method=RequestMethod.GET)
-    public @ResponseBody List<Customer> customerSortedList() {
+    @RequestMapping(value="/customers/sorted", method=RequestMethod.GET)
+    public List<Customer> customerSortedList() {
         return customerService.sorted();
     }
 

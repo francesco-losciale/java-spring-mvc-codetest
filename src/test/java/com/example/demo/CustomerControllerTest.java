@@ -51,7 +51,7 @@ public class CustomerControllerTest {
         String resourceName = "customers.json";
         List<Customer> customerList = readDemoDatesFromFile(resourceName);
         ResponseEntity<String> responseEntity = this.restTemplate
-                .postForEntity("http://localhost:" + port + "/customer/submit/", customerList, String.class);
+                .postForEntity("http://localhost:" + port + "/customers/submit/", customerList, String.class);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 
@@ -63,7 +63,7 @@ public class CustomerControllerTest {
         when(service.sorted()).thenReturn(customerList);
 
         ResponseEntity<List<Customer>> responseEntity = restTemplate.exchange(
-                "http://localhost:" + port + "/customer/sorted/",
+                "http://localhost:" + port + "/customers/sorted/",
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<Customer>>(){});
