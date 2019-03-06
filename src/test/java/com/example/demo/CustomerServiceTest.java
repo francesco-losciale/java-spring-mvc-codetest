@@ -64,7 +64,6 @@ public class CustomerServiceTest {
     }
 
     private List<Customer> readDemoDatesFromFile(String resourceName) throws java.io.IOException {
-        // TODO it is shared, move outside
         ObjectMapper jsonMapper = new ObjectMapper();
         File jsonFile = new File(getClass().getClassLoader().getResource(resourceName).getFile());
         return jsonMapper.readValue(jsonFile, new TypeReference<List<Customer>>() {});
