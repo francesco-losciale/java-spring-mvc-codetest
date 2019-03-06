@@ -27,50 +27,50 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class DemoDateControllerTest {
+public class CustomerControllerTest {
 
     @LocalServerPort
     private int port;
 
     @MockBean
-    private DemoDateService service;
+    private CustomerService service;
 
     @Autowired
-    private DemoDateController demoDateController;
+    private CustomerController customerController;
 
     @Autowired
     private TestRestTemplate restTemplate;
 
     @Test
     public void contextLoads() {
-        assertThat(demoDateController).isNotNull();
+        assertThat(customerController).isNotNull();
     }
 
     @Test
     public void testSubmit() throws Exception {
         String resourceName = "customers.json";
-        List<DemoDate> demoDateList = readDemoDatesFromFile(resourceName);
+        List<Customer> customerList = readDemoDatesFromFile(resourceName);
         ResponseEntity<String> responseEntity = this.restTemplate
-                .postForEntity("http://localhost:" + port + "/date/submit/", demoDateList, String.class);
+                .postForEntity("http://localhost:" + port + "/customer/submit/", customerList, String.class);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 
     @Test
     public void testGetSortedList() throws Exception {
         String resourceName = "customers.json";
-        List<DemoDate> demoDateList = readDemoDatesFromFile(resourceName);
+        List<Customer> customerList = readDemoDatesFromFile(resourceName);
 
-        when(service.sorted()).thenReturn(demoDateList);
+        when(service.sorted()).thenReturn(customerList);
 
-        ResponseEntity<List<DemoDate>> responseEntity = restTemplate.exchange(
-                "http://localhost:" + port + "/date/sorted/",
+        ResponseEntity<List<Customer>> responseEntity = restTemplate.exchange(
+                "http://localhost:" + port + "/customer/sorted/",
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<DemoDate>>(){});
-        List<DemoDate> demoDateResultList = responseEntity.getBody();
+                new ParameterizedTypeReference<List<Customer>>(){});
+        List<Customer> customerResultList = responseEntity.getBody();
         HttpStatus statusCode = responseEntity.getStatusCode();
         assertEquals(HttpStatus.OK, statusCode);
-        assertEquals(demoDateList.size(), demoDateResultList.size());
+        assertEquals(customerList.size(), customerResultList.size());
     }
 
     @Test
@@ -79,10 +79,10 @@ public class DemoDateControllerTest {
         assertEquals(value, ZonedDateTime.parse(value, DateTimeFormatter.ISO_OFFSET_DATE_TIME).toString());
     }
 
-    private List<DemoDate> readDemoDatesFromFile(String resourceName) throws java.io.IOException {
+    private List<Customer> readDemoDatesFromFile(String resourceName) throws java.io.IOException {
         ObjectMapper jsonMapper = new ObjectMapper();
         File jsonFile = new File(getClass().getClassLoader().getResource(resourceName).getFile());
-        return jsonMapper.readValue(jsonFile, new TypeReference<List<DemoDate>>() {});
+        return jsonMapper.readValue(jsonFile, new TypeReference<List<Customer>>() {});
     }
 
 }

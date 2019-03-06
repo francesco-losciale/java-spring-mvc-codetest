@@ -5,7 +5,7 @@ import java.time.ZonedDateTime;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-public class DemoDate {
+public class Customer {
 
     private Long id;
     private String name;
