@@ -47,4 +47,26 @@ public class Customer {
     public void setJointime(ZonedDateTime jointime) {
         this.jointime = jointime;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Customer customer = (Customer) o;
+
+        if (id != null ? !id.equals(customer.id) : customer.id != null) return false;
+        if (name != null ? !name.equals(customer.name) : customer.name != null) return false;
+        if (duetime != null ? !duetime.equals(customer.duetime) : customer.duetime != null) return false;
+        return jointime != null ? jointime.equals(customer.jointime) : customer.jointime == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (duetime != null ? duetime.hashCode() : 0);
+        result = 31 * result + (jointime != null ? jointime.hashCode() : 0);
+        return result;
+    }
 }
