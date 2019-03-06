@@ -10,14 +10,12 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
@@ -25,12 +23,11 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class JavaSpringMvcApplicationTests {
+public class DemoDateControllerTest {
 
     @LocalServerPort
     private int port;
@@ -39,44 +36,31 @@ public class JavaSpringMvcApplicationTests {
     private DemoDateService service;
 
     @Autowired
-    private DemoSortingDateController demoSortingDateController;
+    private DemoDateController demoDateController;
 
     @Autowired
     private TestRestTemplate restTemplate;
 
-    // TODO https://spring.io/guides/gs/testing-web/
-
     @Test
     public void contextLoads() {
-        assertThat(demoSortingDateController).isNotNull();
+        assertThat(demoDateController).isNotNull();
     }
 
-//    @Test
-//    public void testSubmit() {
-//        DemoDate demoDate = new DemoDate(1L, "test", LocalDate.now(), LocalDate.now());
-//        demoDate.setId(1L);
-//        DemoDateSet demoDateSet = new DemoDateSet();
-//        demoDateSet.setDates(Arrays.asList(demoDate));
-//        ResponseEntity<String> responseEntity = this.restTemplate
-//                .postForEntity("http://localhost:" + port + "/date/submit", demoDateSet, String.class);
-//        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-//    }
+    @Test
+    public void testSubmit() throws Exception {
+        String resourceName = "customers.json";
+        List<DemoDate> demoDateList = readDemoDatesFromFile(resourceName);
+        ResponseEntity<String> responseEntity = this.restTemplate
+                .postForEntity("http://localhost:" + port + "/date/submit/", demoDateList, String.class);
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    }
 
     @Test
     public void testGetSortedList() throws Exception {
-        ObjectMapper jsonMapper = new ObjectMapper();
-        // TODO fix this filepath
         String resourceName = "customers.json";
-        File jsonFile = new File(getClass().getClassLoader().getResource(resourceName).getFile());
-        List<DemoDate> demoDateList = jsonMapper.readValue(jsonFile, new TypeReference<List<DemoDate>>() {});
+        List<DemoDate> demoDateList = readDemoDatesFromFile(resourceName);
 
-        when(service.getSortedDateSet()).thenReturn(demoDateList);//TODO read date from file
-
-        // https://stackoverflow.com/questions/23674046/get-list-of-json-objects-with-spring-resttemplate
-//        ResponseEntity<DemoDate[]> responseEntity = restTemplate.getForEntity("http://localhost:" + port + "/date/sorted", DemoDate[].class);
-//        DemoDate[] demoDates = responseEntity.getBody();
-//        assertEquals(1, demoDates.length);
-
+        when(service.getSortedDateSet()).thenReturn(demoDateList);
 
         ResponseEntity<List<DemoDate>> responseEntity = restTemplate.exchange(
                 "http://localhost:" + port + "/date/sorted/",
@@ -84,13 +68,21 @@ public class JavaSpringMvcApplicationTests {
                 null,
                 new ParameterizedTypeReference<List<DemoDate>>(){});
         List<DemoDate> demoDateResultList = responseEntity.getBody();
-        assertEquals(1, demoDateResultList.size());
-
-
-
-        MediaType contentType = responseEntity.getHeaders().getContentType();
         HttpStatus statusCode = responseEntity.getStatusCode();
         assertEquals(HttpStatus.OK, statusCode);
+        assertEquals(demoDateList.size(), demoDateResultList.size());
+    }
+
+    @Test
+    public void testLocalDateFormatFromJson() {
+        String value = "2014-05-27T12:30:05-07:00";
+        assertEquals(value, ZonedDateTime.parse(value, DateTimeFormatter.ISO_OFFSET_DATE_TIME).toString());
+    }
+
+    private List<DemoDate> readDemoDatesFromFile(String resourceName) throws java.io.IOException {
+        ObjectMapper jsonMapper = new ObjectMapper();
+        File jsonFile = new File(getClass().getClassLoader().getResource(resourceName).getFile());
+        return jsonMapper.readValue(jsonFile, new TypeReference<List<DemoDate>>() {});
     }
 
 }

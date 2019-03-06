@@ -1,11 +1,7 @@
 package com.example.demo;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.ZonedDateTime;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -13,17 +9,12 @@ public class DemoDate {
 
     private Long id;
     private String name;
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateTimeFormatter.ISO_OFFSET_DATE_TIME)
-//    private LocalDate duetime;
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-//    private LocalDate jointime;
-
-    @JsonDeserialize(using = CustomLocalDateDeserializer.class)
-    @JsonSerialize(using = CustomLocalDateSerializer.class)
-    private LocalDate duetime;
-    @JsonDeserialize(using = CustomLocalDateDeserializer.class)
-    @JsonSerialize(using = CustomLocalDateSerializer.class)
-    private LocalDate jointime;
+    @JsonDeserialize(using = CustomZonedDateTimeDeserializer.class)
+    @JsonSerialize(using = CustomZonedDateTimeSerializer.class)
+    private ZonedDateTime duetime;
+    @JsonDeserialize(using = CustomZonedDateTimeDeserializer.class)
+    @JsonSerialize(using = CustomZonedDateTimeSerializer.class)
+    private ZonedDateTime jointime;
 
     public Long getId() {
         return id;
@@ -41,19 +32,19 @@ public class DemoDate {
         this.name = name;
     }
 
-    public LocalDate getDuetime() {
+    public ZonedDateTime getDuetime() {
         return duetime;
     }
 
-    public void setDuetime(LocalDate duetime) {
+    public void setDuetime(ZonedDateTime duetime) {
         this.duetime = duetime;
     }
 
-    public LocalDate getJointime() {
+    public ZonedDateTime getJointime() {
         return jointime;
     }
 
-    public void setJointime(LocalDate jointime) {
+    public void setJointime(ZonedDateTime jointime) {
         this.jointime = jointime;
     }
 }

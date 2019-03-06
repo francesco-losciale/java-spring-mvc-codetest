@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class DemoDateServiceImpl implements DemoDateService {
 
     @Override
-    public void submitDemoDateSet(DemoDateSet demoDateSet) {
+    public void submitDemoDateSet(List<DemoDate> demoDateList) {
         throw new UnsupportedOperationException("Not Implemented Yet");
     }
 
