@@ -19,7 +19,7 @@ public class DemoDateController {
 
     @RequestMapping(value="/date/sorted", method=RequestMethod.GET)
     public @ResponseBody List<DemoDate> getSortedList() {
-        return demoDateService.getSortedDateSet();
+        return demoDateService.sorted();
     }
 
 }

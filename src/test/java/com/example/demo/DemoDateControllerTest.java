@@ -60,7 +60,7 @@ public class DemoDateControllerTest {
         String resourceName = "customers.json";
         List<DemoDate> demoDateList = readDemoDatesFromFile(resourceName);
 
-        when(service.getSortedDateSet()).thenReturn(demoDateList);
+        when(service.sorted()).thenReturn(demoDateList);
 
         ResponseEntity<List<DemoDate>> responseEntity = restTemplate.exchange(
                 "http://localhost:" + port + "/date/sorted/",

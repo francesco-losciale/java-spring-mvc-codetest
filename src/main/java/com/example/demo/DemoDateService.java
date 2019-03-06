@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface DemoDateService {
 
-    void submitDemoDateSet(List<DemoDate> demoDateList);
+    void submit(List<DemoDate> demoDateList);
 
-    List<DemoDate> getSortedDateSet();
+    List<DemoDate> sorted();
 }
