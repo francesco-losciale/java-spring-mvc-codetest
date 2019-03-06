@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<Customer> sorted() {
+        Collections.sort(this.customerList);
         return this.customerList;
     }
 }

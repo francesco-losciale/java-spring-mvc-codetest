@@ -5,7 +5,7 @@ import java.time.ZonedDateTime;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-public class Customer {
+public class Customer implements Comparable<Customer> {
 
     private Long id;
     private String name;
@@ -68,5 +68,20 @@ public class Customer {
         result = 31 * result + (duetime != null ? duetime.hashCode() : 0);
         result = 31 * result + (jointime != null ? jointime.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public int compareTo(Customer customer) {
+        return this.duetime.compareTo(customer.duetime);
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", duetime=" + duetime +
+                ", jointime=" + jointime +
+                '}';
     }
 }
