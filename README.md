@@ -14,7 +14,7 @@ For running the server
 mvn spring:boot
 ```
 
-You can find the JMeter Test Plan file inside. 
+You can find the JMeter Test Plan file [here](https://github.com/francesco-losciale/java-spring-mvc-codetest/blob/master/Jmeter.Test.Plan.jmx). 
 
 # Considerations
 
