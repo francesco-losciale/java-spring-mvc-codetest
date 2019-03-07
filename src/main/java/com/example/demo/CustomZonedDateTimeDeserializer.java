@@ -18,10 +18,8 @@ public class CustomZonedDateTimeDeserializer extends StdDeserializer<ZonedDateTi
         super(ZonedDateTime.class);
     }
 
-
     @Override
-    public ZonedDateTime deserialize(JsonParser jp, DeserializationContext ctxt)
-            throws IOException, JsonProcessingException {
+    public ZonedDateTime deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
         return ZonedDateTime.parse(jp.readValueAs(String.class), DateTimeFormatter.ISO_OFFSET_DATE_TIME);
     }
 }

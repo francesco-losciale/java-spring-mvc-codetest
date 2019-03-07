@@ -19,7 +19,7 @@ public class CustomZonedDateTimeSerializer extends StdSerializer<ZonedDateTime> 
     }
 
     @Override
-    public void serialize(ZonedDateTime value, JsonGenerator gen, SerializerProvider sp) throws IOException, JsonProcessingException {
+    public void serialize(ZonedDateTime value, JsonGenerator gen, SerializerProvider sp) throws IOException {
         gen.writeString(value.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
     }
 }

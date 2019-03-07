@@ -21,7 +21,7 @@ public class CustomerServiceTest {
     private CustomerServiceImpl customerService = new CustomerServiceImpl();
 
     @Test
-    public void testSubmitCustomerList() {
+    public void testCustomerListSize() {
         List<Customer> expectedCustomerList = new ArrayList<>();
         Customer customer = new Customer();
         customer.setId(1L);
@@ -34,7 +34,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    public void testSimpleSortingIsWorking() throws Exception {
+    public void testSimpleSorting() throws Exception {
         Customer firstCustomer = new Customer();
         firstCustomer.setId(1L);
         firstCustomer.setName("test");
@@ -54,7 +54,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    public void testHeavySortingIsWorking() throws Exception {
+    public void testCompleteSorting() throws Exception {
         String resourceName = "customers.json";
         List<Customer> customerList = readDemoDatesFromFile(resourceName);
         List<Customer> resultList = this.customerService.sortList(customerList);

@@ -12,7 +12,7 @@ public class CustomerController {
     private CustomerService customerService;
 
     @RequestMapping(value = "/customers/sorting", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public List<Customer> submit(@RequestBody List<Customer> customerList) {
+    public List<Customer> sort(@RequestBody List<Customer> customerList) {
         return customerService.sortList(customerList);
     }
 
