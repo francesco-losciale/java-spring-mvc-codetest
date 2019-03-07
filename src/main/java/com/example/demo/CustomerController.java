@@ -11,14 +11,9 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @RequestMapping(value = "/customers/submit", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public void submit(@RequestBody List<Customer> customerList) {
-        customerService.submit(customerList);
-    }
-
-    @RequestMapping(value="/customers/sorted", method=RequestMethod.GET)
-    public List<Customer> customerSortedList() {
-        return customerService.sorted();
+    @RequestMapping(value = "/customers/sorting", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    public List<Customer> submit(@RequestBody List<Customer> customerList) {
+        return customerService.sortList(customerList);
     }
 
 }

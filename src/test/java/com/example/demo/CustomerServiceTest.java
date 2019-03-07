@@ -29,8 +29,8 @@ public class CustomerServiceTest {
         customer.setDuetime(ZonedDateTime.now());
         customer.setJointime(ZonedDateTime.now());
         expectedCustomerList.add(customer);
-        this.customerService.submit(expectedCustomerList);
-        assertArrayEquals(expectedCustomerList.toArray(), this.customerService.sorted().toArray());
+        List<Customer> resultList = this.customerService.sortList(expectedCustomerList);
+        assertArrayEquals(expectedCustomerList.toArray(), resultList.toArray());
     }
 
     @Test
@@ -47,20 +47,20 @@ public class CustomerServiceTest {
         secondCustomer.setDuetime(ZonedDateTime.of(2019, 03, 06, 8, 40, 5, 501, ZoneId.systemDefault()));
         secondCustomer.setJointime(ZonedDateTime.of(2019, 03, 06, 8, 40, 5, 501, ZoneId.systemDefault()));
 
-        this.customerService.submit(Arrays.asList(secondCustomer, firstCustomer));
+        List<Customer> resultList = this.customerService.sortList(Arrays.asList(secondCustomer, firstCustomer));
 
-        assertEquals(firstCustomer, this.customerService.sorted().get(0));
-        assertEquals(secondCustomer, this.customerService.sorted().get(1));
+        assertEquals(firstCustomer, resultList.get(0));
+        assertEquals(secondCustomer, resultList.get(1));
     }
 
     @Test
     public void testHeavySortingIsWorking() throws Exception {
         String resourceName = "customers.json";
         List<Customer> customerList = readDemoDatesFromFile(resourceName);
-        this.customerService.submit(customerList);
+        List<Customer> resultList = this.customerService.sortList(customerList);
 
         Collections.sort(customerList);
-        assertArrayEquals(customerList.toArray(), this.customerService.sorted().toArray());
+        assertArrayEquals(customerList.toArray(), resultList.toArray());
     }
 
     private List<Customer> readDemoDatesFromFile(String resourceName) throws java.io.IOException {

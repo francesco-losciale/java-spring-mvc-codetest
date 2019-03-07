@@ -1,25 +1,18 @@
 package com.example.demo;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.ApplicationScope;
+import org.springframework.web.context.annotation.RequestScope;
 
+@RequestScope
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
-    private List<Customer> customerList = new ArrayList<>();
-
     @Override
-    public void submit(List<Customer> customerList) {
-        this.customerList.addAll(customerList);
-    }
-
-    @Override
-    public List<Customer> sorted() {
-        Collections.sort(this.customerList);
-        return this.customerList;
+    public List<Customer> sortList(List<Customer> customerList) {
+        Collections.sort(customerList);
+        return customerList;
     }
 }
