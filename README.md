@@ -23,3 +23,5 @@ Here the [JMeter Test Plan file](https://github.com/francesco-losciale/java-spri
 2. Sorting Service testing: the sorting is tested in the service unit test only
 
 3. Current performance in warmed up state: 4s for 400 users
+
+4. TODO add package levels for grouping the classes
