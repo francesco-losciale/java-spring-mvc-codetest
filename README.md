@@ -14,7 +14,7 @@ For running the server
 mvn spring:boot
 ```
 
-You can find the [JMeter Test Plan file](https://github.com/francesco-losciale/java-spring-mvc-codetest/blob/master/Jmeter.Test.Plan.jmx) and the [curl commands for manual testing](https://github.com/francesco-losciale/java-spring-mvc-codetest/blob/master/manual_test_commands.txt). 
+Here the [JMeter Test Plan file](https://github.com/francesco-losciale/java-spring-mvc-codetest/blob/master/Jmeter.Test.Plan.jmx) and the [curl commands for manual testing](https://github.com/francesco-losciale/java-spring-mvc-codetest/blob/master/manual_test_commands.txt). 
 
 # Considerations
 
