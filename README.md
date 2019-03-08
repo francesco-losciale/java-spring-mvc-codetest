@@ -18,15 +18,12 @@ Here the [JMeter Test Plan file](https://github.com/francesco-losciale/java-spri
 
 # Considerations
 
-1. Controller testing: Spring container is used testing the controller for the sake of simplicity but a more performant solution such as http://www.mock-server.com/ would be better. Ultimately what we want to test is the http paramters serialization/deserialization. 
+1. Created an end-to-end (integration) test and two unit tests (controller and service)
 
-2. Sorting Service testing: the sorting is tested in the service unit test only
-
-3. Current performance in warmed up state: 4s for 400 users
+2. Current performance in warmed up state: 4s for 400 users
 
 4. TODO : 
-- container for test controller probably is not needed at all
 - add packaging for classes
 - create builder for customers & testing
 - test some negative scenario ie. internal_server_error etc
-
+- integration test must be separate by unit tests
