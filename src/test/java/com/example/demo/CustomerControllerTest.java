@@ -30,7 +30,7 @@ public class CustomerControllerTest {
     private CustomerController customerController = new CustomerController();
 
     @Test
-    public void testRestSerialization() throws Exception {
+    public void testSortMethod() throws Exception {
         List<Customer> customerList = readDemoDatesFromFile("customers.json");
         when(service.sortList(any())).thenReturn(customerList);
         List<Customer> customerResultList = this.customerController.sort(customerList);
