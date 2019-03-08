@@ -24,4 +24,9 @@ Here the [JMeter Test Plan file](https://github.com/francesco-losciale/java-spri
 
 3. Current performance in warmed up state: 4s for 400 users
 
-4. TODO add packaging for classes
+4. TODO : 
+- container for test controller probably is not needed at all
+- add packaging for classes
+- create builder for customers & testing
+- test some negative scenario ie. internal_server_error etc
+
