@@ -53,7 +53,7 @@ public class EndToEndCustomerTest {
     public void testSorting() throws Exception {
         List<Customer> customerList = readDemoDatesFromFile("customers.json");
         ResponseEntity<String> responseEntity = this.restTemplate
-                .postForEntity(this.url + "/sorting", customerList, String.class);
+                .postForEntity(this.url + "/sort", customerList, String.class);
 
         List<Customer> customerResultList = readDemoDatesFromString(responseEntity.getBody());
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
