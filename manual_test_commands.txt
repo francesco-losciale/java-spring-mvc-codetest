@@ -1,3 +1,5 @@
+MAVEN_OPTS="-XX:+UnlockCommercialFeatures -XX:+FlightRecorder "
+MAVEN_OPTS="$MAVEN_OPTS -XX:StartFlightRecording=duration=3600s,filename=flight.jfr,settings=my_profile" # profile jfc @ /usr/lib/jvm/java-8-oracle/jre/lib/jfr/my_profile.jfc
 mvn spring-boot:run
 
 curl -vX POST http://localhost:8080/customers/submit -d @customers.json --header "Content-Type: application/json"
